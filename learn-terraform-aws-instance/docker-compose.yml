@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+    localstack:
+        container_name: "localstack_main"
+        image: localstack/localstack:latest
+        environment: 
+            - SERVICES=ec2
+            - DOCKER_HOST=unix:///var/run/docker.sock
+            - DEBUG=1
+            - DATA_DIR=/tmp/localstack/data
+            - PORT_WEB_UI=8888
+        ports:
+            - "4566:4566"
+            - "8888:8888"
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - localstack_data:/tmp/localstack/data
+        network_mode: bridge
+
+volumes:
+    localstack_data:
